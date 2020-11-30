@@ -4,7 +4,7 @@ import Axios from "axios";
 
 
 
-class Update extends React.Component {
+class AddAndUpdate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +15,8 @@ class Update extends React.Component {
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeDescription = this.handleChangeDescription.bind(this);
     this.handleChangeCategory = this.handleChangeCategory.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
   handleChangeTitle(event) {
     this.setState({
@@ -35,7 +36,7 @@ class Update extends React.Component {
     });
     <ul>{this.state}</ul>;
   }
-  handleSubmit(event) {
+  handleUpdate(event) {
     // console.log(this.state.description);
     var title = this.state.title;
     var description = this.state.description;
@@ -48,7 +49,24 @@ class Update extends React.Component {
     })
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
-    // res.data.form;
+
+    // res.data.headers["Content-Type"];
+  }
+
+  handleAdd(event) {
+    // console.log(this.state.description);
+    var title = this.state.title;
+    var description = this.state.description;
+    var category = this.state.category;
+    event.preventDefault();
+    Axios.post("http://localhost:3000/insert", {
+      title: title,
+      description: description,
+      category: category,
+    })
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+
     // res.data.headers["Content-Type"];
   }
   render() {
@@ -85,11 +103,19 @@ class Update extends React.Component {
           </label>
           <button
             type="button"
-            class="button"
             value="Info"
-            onClick={this.handleSubmit}
+            onClick={this.handleUpdate}
           >
             Update
+          </button>
+          <br></br>
+          <br></br>
+          <button
+            type="button"
+            value="Info"
+            onClick={this.handleAdd}
+          >
+           ADD
           </button>
         </div>
 
@@ -98,4 +124,4 @@ class Update extends React.Component {
   }
 }
 
-export default Update;
+export default AddAndUpdate;
