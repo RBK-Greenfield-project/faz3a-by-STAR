@@ -22,11 +22,7 @@ class Delete extends React.Component {
            console.log('pass')
          },
     })};
-  //  delete = (id) =>{
-  //       Axios.delete("http://localhost:3000/api/delete/",{id:id})
-  //       .then((res) => console.log(res.data))
-  //       .catch((err) =>console.log(err));
-  //   }
+
     onChange (e) {
       console.log("change was made")
       this.setState({
