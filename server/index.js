@@ -3,10 +3,40 @@ var bodyParser = require('body-parser');
 var app = express();
 var mysql = require('mysql');
 var path = require('path')
+const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const cors = require("cors");
+const saltRounds = 10;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.static(__dirname + '/../react-client/dist'));
+// app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
+app.use(cookieParser());
+app.use(
+  session({
+    key: "userId",
+    secret: "subscribe",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 60 * 60 * 24,
+    },
+  })
+);
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.static(__dirname + "/../react-client/dist"));
 
 var MyDataBase = mysql.createConnection({
   host     : 'localhost',
@@ -60,7 +90,61 @@ app.get("/category1", (req, res) => {
     res.send(result)
 });  })
 
+app.post("/SignUp1", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
 
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    if (err) {
+      console.log(err);
+    }
+
+    MyDataBase.query(
+      "INSERT INTO users (email, password) VALUES (?,?)",
+      [email, hash],
+      (err, result) => {
+        console.log(err);
+      }
+    );
+  });
+});
+
+app.get("/signIN1", (req, res) => {
+  if (req.session.user) {
+    res.send({ loggedIn: true, user: req.session.user });
+  } else {
+    res.send({ loggedIn: false });
+  }
+});
+
+app.post("/signIN1", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  MyDataBase.query(
+    "SELECT * FROM users WHERE email = ?;",
+    email,
+    (err, result) => {
+      if (err) {
+        res.send({ err: err });
+      }
+
+      if (result.length > 0) {
+        bcrypt.compare(password, result[0].password, (error, response) => {
+          if (response) {
+            req.session.user = result;
+            console.log(req.session.user);
+            res.send(result);
+          } else {
+            res.send({ message: "Wrong email/password combination!" });
+          }
+        });
+      } else {
+        res.send({ message: "User doesn't exist" });
+      }
+    }
+  );
+});
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');
