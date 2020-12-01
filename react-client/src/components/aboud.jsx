@@ -1,5 +1,9 @@
 import React from 'react';
 import $ from 'jquery';
+import ReactDOM from "react-dom";
+import Button from '@material-ui/core/Button';
+
+
 
 
 class Search extends React.Component {
@@ -23,8 +27,9 @@ class Search extends React.Component {
 
    showList(){
     $.ajax({
+
       type: "Get",
-      url: "/search",
+      url: "/search2",
       success: (data) => {
        this.setState({
          newData:data })
@@ -49,7 +54,7 @@ class Search extends React.Component {
       </form>
 
 
-      <button onClick={this.showList}>show category</button>
+      <button  onClick={this.showList}>show category</button>
       <div> {this.state.newData.filter(elet=> this.state.select===(elet.name) ).map((ele,index) =>
        <li key={index}>{ele.name}{ele.email}{ele.phone}</li>)
      } </div>
