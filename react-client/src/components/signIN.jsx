@@ -1,6 +1,6 @@
 import React from "react";
 import $ from "jquery";
-
+import SignUP from './SignUP.jsx'
 class signIN extends React.Component {
   constructor(props) {
     super(props);
@@ -44,6 +44,7 @@ class signIN extends React.Component {
   render() {
     return (
       <div>
+        <SignUP/>
         <h1>sign in</h1>
         <input
           type="text"
