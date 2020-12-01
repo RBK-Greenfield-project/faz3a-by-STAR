@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import ReactDOM from "react-dom";
 import Button from '@material-ui/core/Button';
+import Navbar from './/navbar.jsx'
 
 
 
@@ -43,6 +44,7 @@ class Search extends React.Component {
 
   render () {
     return (<div>
+      <Navbar/>
 <h1>Categories</h1>
 <form>
         <h1>Hello</h1>

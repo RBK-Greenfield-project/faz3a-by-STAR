@@ -34,11 +34,14 @@ function Navbar() {
 
           <Typography variant="h6" className={classes.title}>
           <nav className="navBar">
-          <NavLink exact to="/" className={classes.menuButton}> Home  </NavLink>  <NavLink to="/upload/" className={classes.menuButton}> category  </NavLink>     <NavLink to="/search/" className={classes.menuButton}>  about us </NavLink>
-          <NavLink to="/signin/" className={classes.menuButton}>  sign in  </NavLink> <Button variant="contained" color="primary" component="span"> <NavLink to="/signup/">  sign up  </NavLink> </Button> <NavLink to="/upload/">  upload  </NavLink>
+
+          <NavLink  to="/" className={classes.menuButton}> Home  </NavLink>
+
+          <NavLink to="/category/" className={classes.menuButton}>  category </NavLink>
+          <NavLink  to="/login/" className={classes.menuButton}> login  </NavLink>
       </nav>
           </Typography>
-          <Button color="inherit">Login</Button>
+
         </Toolbar>
       </AppBar>
 

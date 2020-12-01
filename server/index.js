@@ -52,6 +52,13 @@ app.put("/update", function(req, res) {
     res.send(result)
 });  })
 
+app.get("/category1", (req, res) => {
+  var newData=[]
+  MyDataBase.query("SELECT * FROM items", function (err, result, fields) {
+    if (err) throw err
+    else
+    res.send(result)
+});  })
 
 
 

@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Switch,Route} from "react-router-dom";
-import Search from './components/aboud.jsx'
-import AddingAndUpdate from './components/addingandupdate.jsx'
-import signIN from './components/signIN.jsx'
-import SignUP from './components/SignUP.jsx'
-import Navbar from './components/navbar.jsx'
-import Homepage from './components/Homepage.jsx'
+import Search from './components/aboud.jsx';
+import signIN from './components/signIN.jsx';
+import SignUP from './components/SignUP.jsx';
+import Navbar from './components/navbar.jsx';
+import Homepage from './components/Homepage.jsx';
+import Category from './components/categories.jsx';
+import Delete from './components/delete.jsx';
+import Button from '@material-ui/core/Button';
+import Upload from './components/upload.jsx';
+import Update from './components/update.jsx';
+
 function App (){
   return (
 
@@ -15,16 +20,20 @@ function App (){
 
 
 
-      <Navbar/>
+
         <br/>
-        <Homepage/>
+
         <Switch>
 
 
-          <Route path="/search" component={Search}/>
-          <Route path="/signin" component={signIN}/>
+          <Route exact path="/" component={Homepage}/>
+          <Route exact path="/category" component={Category}/>
+          <Route path="/login" component={signIN}/>
           <Route path="/signup" component={SignUP}/>
-          <Route path="/upload" component={AddingAndUpdate}/>
+          <Route path="/delete" component={Delete}/>
+          <Route path="/upload" component={Upload}/>
+          <Route path="/update" component={Update}/>
+
 
 
         </Switch>
