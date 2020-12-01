@@ -1,6 +1,6 @@
 import React from "react";
 import Axios from "axios";
-
+import Button from '@material-ui/core/Button';
 
 
 
@@ -101,22 +101,22 @@ class AddAndUpdate extends React.Component {
               onChange={this.handleChangeCategory}
             />
           </label>
-          <button
+          <Button
             type="button"
             value="Info"
             onClick={this.handleUpdate}
           >
             Update
-          </button>
+          </Button>
           <br></br>
           <br></br>
-          <button
+          <Button
             type="button"
             value="Info"
             onClick={this.handleAdd}
           >
            ADD
-          </button>
+          </Button>
         </div>
 
       </div>

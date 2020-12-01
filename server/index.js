@@ -33,6 +33,27 @@ app.put("/update", function(req, res) {
     // res.end();
   });
 
+  app.post('/insert', (req, res) => {
+    console.log ("hiii",req.body)
+     const Name=req.body.title;
+     const Description=req.body.description;
+     const Category= req.body.category;
+    // var sql = "INSERT INTO items (title) VALUES (?)";
+    MyDataBase.query("INSERT INTO sara (name,email,phone) VALUES (?,?,?)", [Name , Description , Category],(err,result)=>{
+       console.log(err);
+
+       } ) })
+
+       app.get("/search2", (req, res) => {
+  var newData=[]
+  MyDataBase.query("SELECT * FROM sara", function (err, result, fields) {
+    if (err) throw err
+    else
+    res.send(result)
+});  })
+
+
+
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');
