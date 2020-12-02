@@ -10,7 +10,8 @@ class Upload extends React.Component {
     this.state = {
       title: "",
       description: "",
-      category: "",
+      categories: ['cars','business'],
+      category:[],
     };
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeDescription = this.handleChangeDescription.bind(this);
@@ -21,19 +22,19 @@ class Upload extends React.Component {
     this.setState({
       title: event.target.value,
     });
-    <ul>{this.state}</ul>;
+
   }
   handleChangeDescription(event) {
     this.setState({
       description: event.target.value,
     });
-    <ul>{this.state}</ul>;
+
   }
   handleChangeCategory(event) {
     this.setState({
       category: event.target.value,
     });
-    <ul>{this.state}</ul>;
+
   }
 
 
@@ -76,12 +77,11 @@ class Upload extends React.Component {
           </label>
           <label>
             category:
-            <input
-              type="text"
-              name=" category"
-              value={this.state.value}
-              onChange={this.handleChangeCategory}
-            />
+            <select onChange={this.handleChangeCategory} >
+           <option  value ='cars'>{this.state.categories[0]}</option>
+           <option value='business' >{this.state.categories[1]}</option>
+      </select>
+
           </label>
 
           <br></br>

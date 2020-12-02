@@ -128,12 +128,14 @@ app.delete('/delete1',(req,res) => {
 
 
 app.get("/signIN1", (req, res) => {
+
   if (req.session.user) {
     res.send({ loggedIn: true, user: req.session.user });
   } else {
     res.send({ loggedIn: false });
   }
-});
+}
+);
 
 app.post("/signIN1", (req, res) => {
   const email = req.body.email;
@@ -155,7 +157,10 @@ app.post("/signIN1", (req, res) => {
             res.send(result);
           } else {
             res.send({ message: "Wrong email/password combination!" });
+            console.log("Wrong email/password combination!")
+
           }
+
         });
       } else {
         res.send({ message: "User doesn't exist" });
