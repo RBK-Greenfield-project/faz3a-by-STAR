@@ -6,7 +6,7 @@ import signIN from './components/signIN.jsx';
 import SignUP from './components/SignUP.jsx';
 import Navbar from './components/navbar.jsx';
 import Homepage from './components/Homepage.jsx';
-import Category from './components/categories.jsx';
+import Items from './components/Items.jsx';
 import Delete from './components/delete.jsx';
 import Button from '@material-ui/core/Button';
 import Upload from './components/upload.jsx';
@@ -27,7 +27,7 @@ function App (){
 
 
           <Route exact path="/" component={Homepage}/>
-          <Route exact path="/category" component={Category}/>
+          <Route exact path="/Items" component={Items} />
           <Route path="/login" component={signIN}/>
           <Route path="/signup" component={SignUP}/>
           <Route path="/delete" component={Delete}/>

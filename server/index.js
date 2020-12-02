@@ -45,14 +45,14 @@ var MyDataBase = mysql.createConnection({
   database: 'faz3etak'
 
 });
-app.put("/update", function(req, res) {
+app.put("/update1", function(req, res) {
     // console.log("hi from server");
     const title = req.body.title;
     const description = req.body.description;
     const category = req.body.category;
     // const sqlInsert = "INSERT INTO Items( title) VALUES ('${title}')";
     MyDataBase.query(
-      "UPDATE sara SET  name = (?),email = (?), phone = (?) ",
+      "UPDATE items SET  title = (?),description = (?), category = (?) ",
       [title, description, category],
       (err, result) => {
         if (err) console.log(err);
@@ -65,11 +65,11 @@ app.put("/update", function(req, res) {
 
   app.post('/insert', (req, res) => {
     console.log ("hiii",req.body)
-     const Name=req.body.title;
+     const Title=req.body.title;
      const Description=req.body.description;
      const Category= req.body.category;
     // var sql = "INSERT INTO items (title) VALUES (?)";
-    MyDataBase.query("INSERT INTO sara (name,email,phone) VALUES (?,?,?)", [Name , Description , Category],(err,result)=>{
+    MyDataBase.query("INSERT INTO items (title,description,category) VALUES (?,?,?)", [Title , Description , Category],(err,result)=>{
        console.log(err);
 
        } ) })
@@ -82,8 +82,8 @@ app.put("/update", function(req, res) {
     res.send(result)
 });  })
 
-app.get("/category1", (req, res) => {
-  var newData=[]
+app.get("/Items1", (req, res) => {
+
   MyDataBase.query("SELECT * FROM items", function (err, result, fields) {
     if (err) throw err
     else
@@ -108,6 +108,24 @@ app.post("/SignUp1", (req, res) => {
     );
   });
 });
+app.delete('/delete1',(req,res) => {
+    console.log(req.body.id);
+    MyDataBase.query('DELETE FROM `items` WHERE `id`=?', [req.body.id], function (error, results, fields) {
+      console.log("deeeeleeted from database")
+      if (error) throw error;
+      res.end('Record has been deleted!');
+    });
+   });
+  app.delete('/api/delete1/:id',(req,res) => {
+   const name =req.params.id;
+   const sqlDelete="Delete FROM items where id=?";
+   MyDataBase.query(sqlDelete,name,(err,resulte)=>{
+     if(err)console.log(err)
+   }) })
+
+
+
+
 
 app.get("/signIN1", (req, res) => {
   if (req.session.user) {

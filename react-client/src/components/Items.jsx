@@ -4,7 +4,7 @@ import $ from 'jquery';
 import Navbar2 from './navbar2.jsx'
 
 
-class Category extends React.Component {
+class Items extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +23,7 @@ class Category extends React.Component {
   })
   $.ajax({
     type: "Get",
-    url: "/category1",
+    url: "/Items1",
     success: (data) => {
      this.setState({
        newData:data })
@@ -47,10 +47,10 @@ class Category extends React.Component {
       </select>
 
 
-      <div> {this.state.newData.filter(elet=> this.state.select===(elet.category) ).map((ele,index) => <li key={index}>{ele.id}<br/>{ele.title} <br/>{ele.description} <br/>{ele.category}<br/>  <button onClick={this.handlepage}>update</button></li>)
+      <div> {this.state.newData.filter(elet=> this.state.select===(elet.category) ).map((ele,index) => <div key={index}>{ele.id}<br/>{ele.title} <br/>{ele.description} <br/>{ele.category}<br/>  </div>)
      } </div>
         </div>)
         }
   }
 
-export default Category;
+export default Items;

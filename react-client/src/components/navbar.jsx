@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Items from './Items.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +38,7 @@ function Navbar() {
 
           <NavLink  to="/" className={classes.menuButton}> Home  </NavLink>
 
-          <NavLink to="/category/" className={classes.menuButton}>  category </NavLink>
+          <NavLink to="/Items/" className={classes.menuButton} >  Items </NavLink>
           <NavLink  to="/login/" className={classes.menuButton}> login  </NavLink>
       </nav>
           </Typography>
