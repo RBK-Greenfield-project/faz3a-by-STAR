@@ -37,7 +37,7 @@ const tutorialSteps = [
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 1000,
+    maxWidth: 2000,
     flexGrow: 1,
   },
   header: {
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   img: {
     height: 255,
     maxWidth: 1000,
-    paddingLeft: theme.spacing(10),
+    paddingLeft: theme.spacing(15),
     overflow: 'hidden',
     display: 'block',
     width: '100%',

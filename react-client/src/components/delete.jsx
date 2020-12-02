@@ -15,7 +15,7 @@ class Delete extends React.Component {
         console.log(`${that} was deleted`);
        $.ajax({
          type:'delete',
-         url:'/delete',
+         url:'/delete1',
           contentType: "application/json",
           data: JSON.stringify({id:that}),
         success: (data) => {

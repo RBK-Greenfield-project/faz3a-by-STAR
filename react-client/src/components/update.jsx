@@ -42,7 +42,7 @@ class Update extends React.Component {
     var description = this.state.description;
     var category = this.state.category;
     event.preventDefault();
-    Axios.put("http://localhost:3000/update", {
+    Axios.put("http://localhost:3000/update1", {
       title: title,
       description: description,
       category: category,
