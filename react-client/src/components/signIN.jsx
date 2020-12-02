@@ -19,15 +19,31 @@ class signIN extends React.Component {
       data: JSON.stringify({ email, password }),
       contentType: "application/json",
       success: (data) => {
-        console.log("success" + data);
+            console.log('hey there!')
       },
       error: (xhr) => {
         if (xhr.status == 201) {
           this.success(null, "Created", xhr);
+
           return;
         }
       },
     });
+    $.ajax({
+      method: "get",
+      url: "/signIN1",
+      success: (data) => {
+            console.log(data)
+            // window.location = '/';
+      },
+      error: (xhr) => {
+        if (xhr.status == 201) {
+          this.success(null, "Created", xhr);
+
+          return;
+        }
+      },
+    })
   }
   handleChangeemail(event) {
     //  console.log(event.target.value)

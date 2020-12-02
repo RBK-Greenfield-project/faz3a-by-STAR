@@ -29,7 +29,6 @@ function App (){
           <Route exact path="/" component={Homepage}/>
           <Route exact path="/Items" component={Items} />
           <Route path="/login" component={signIN}/>
-          <Route path="/signup" component={SignUP}/>
           <Route path="/delete" component={Delete}/>
           <Route path="/upload" component={Upload}/>
           <Route path="/update" component={Update}/>

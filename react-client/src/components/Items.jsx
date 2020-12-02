@@ -8,7 +8,7 @@ class Items extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: ['cars','business'],
+      items: ['cars','business','ShowAll'],
       select:[],
       newData:[]
 }
@@ -41,13 +41,13 @@ class Items extends React.Component {
       <Navbar2/>
       <h2>Please Choose A Category</h2>
         <select onChange={this.handleChange} >
-        <option ></option>
+        <option value ='ShowAll' >{this.state.items[2]}</option>
          <option  value ='cars'>{this.state.items[0]}</option>
            <option value='business' >{this.state.items[1]}</option>
       </select>
 
 
-      <div> {this.state.newData.filter(elet=> this.state.select===(elet.category) ).map((ele,index) => <div key={index}>{ele.id}<br/>{ele.title} <br/>{ele.description} <br/>{ele.category}<br/>  </div>)
+      <div> {this.state.newData.filter(elet=> this.state.select === elet.category || this.state.select === this.state.items[2] ).map((ele,index) => <div key={index}>{ele.id}<br/>{ele.title} <br/>{ele.description} <br/>{ele.category}<br/>  </div>)
      } </div>
         </div>)
         }
