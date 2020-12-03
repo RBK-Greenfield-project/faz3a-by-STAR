@@ -1,8 +1,8 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+var express = require("express");
+var bodyParser = require("body-parser");
 var app = express();
-var mysql = require('mysql');
-var path = require('path')
+var mysql = require("mysql");
+var path = require("path");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -11,7 +11,7 @@ const saltRounds = 10;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(__dirname + "/../react-client/dist"));
 // app.use(cors());
 app.use(
   cors({
@@ -39,56 +39,58 @@ app.use(express.json());
 app.use(express.static(__dirname + "/../react-client/dist"));
 
 var MyDataBase = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'password',
-  database: 'faz3etak'
-
+  host: "localhost",
+  user: "root",
+  password: "0000",
+  database: "faz3etak",
 });
-app.put("/update1", function(req, res) {
-    // console.log("hi from server");
-    const title = req.body.title;
-    const description = req.body.description;
-    const category = req.body.category;
-    // const sqlInsert = "INSERT INTO Items( title) VALUES ('${title}')";
-    MyDataBase.query(
-      "UPDATE items SET  title = (?),description = (?), category = (?) ",
-      [title, description, category],
-      (err, result) => {
-        if (err) console.log(err);
-        // console.log("1 record inserted");
-      }
-    );
-    res.send("result");
-    // res.end();
-  });
+app.put("/update1", function (req, res) {
+  // console.log("hi from server");
+  const title = req.body.title;
+  const description = req.body.description;
+  const category = req.body.category;
+  // const sqlInsert = "INSERT INTO Items( title) VALUES ('${title}')";
+  MyDataBase.query(
+    "UPDATE items SET  title = (?),description = (?), category = (?) ",
+    [title, description, category],
+    (err, result) => {
+      if (err) console.log(err);
+      // console.log("1 record inserted");
+    }
+  );
+  res.send("result");
+  // res.end();
+});
 
-  app.post('/insert', (req, res) => {
-    console.log ("hiii",req.body)
-     const Title=req.body.title;
-     const Description=req.body.description;
-     const Category= req.body.category;
-    // var sql = "INSERT INTO items (title) VALUES (?)";
-    MyDataBase.query("INSERT INTO items (title,description,category) VALUES (?,?,?)", [Title , Description , Category],(err,result)=>{
-       console.log(err);
+app.post("/insert", (req, res) => {
+  console.log("hiii", req.body);
+  const Title = req.body.title;
+  const Description = req.body.description;
+  const Category = req.body.category;
+  // var sql = "INSERT INTO items (title) VALUES (?)";
+  MyDataBase.query(
+    "INSERT INTO items (title,description,category) VALUES (?,?,?)",
+    [Title, Description, Category],
+    (err, result) => {
+      console.log(err);
+    }
+  );
+});
 
-       } ) })
-
-       app.get("/search2", (req, res) => {
-  var newData=[]
+app.get("/search2", (req, res) => {
+  var newData = [];
   MyDataBase.query("SELECT * FROM sara", function (err, result, fields) {
-    if (err) throw err
-    else
-    res.send(result)
-});  })
+    if (err) throw err;
+    else res.send(result);
+  });
+});
 
 app.get("/Items1", (req, res) => {
-
   MyDataBase.query("SELECT * FROM items", function (err, result, fields) {
-    if (err) throw err
-    else
-    res.send(result)
-});  })
+    if (err) throw err;
+    else res.send(result);
+  });
+});
 
 app.post("/SignUp1", (req, res) => {
   const email = req.body.email;
@@ -108,34 +110,33 @@ app.post("/SignUp1", (req, res) => {
     );
   });
 });
-app.delete('/delete1',(req,res) => {
-    console.log(req.body.id);
-    MyDataBase.query('DELETE FROM `items` WHERE `id`=?', [req.body.id], function (error, results, fields) {
-      console.log("deeeeleeted from database")
+app.delete("/delete1", (req, res) => {
+  console.log(req.body.id);
+  MyDataBase.query(
+    "DELETE FROM `items` WHERE `id`=?",
+    [req.body.id],
+    function (error, results, fields) {
+      console.log("deeeeleeted from database");
       if (error) throw error;
-      res.end('Record has been deleted!');
-    });
-   });
-  app.delete('/api/delete1/:id',(req,res) => {
-   const name =req.params.id;
-   const sqlDelete="Delete FROM items where id=?";
-   MyDataBase.query(sqlDelete,name,(err,resulte)=>{
-     if(err)console.log(err)
-   }) })
-
-
-
-
+      res.end("Record has been deleted!");
+    }
+  );
+});
+app.delete("/api/delete1/:id", (req, res) => {
+  const name = req.params.id;
+  const sqlDelete = "Delete FROM items where id=?";
+  MyDataBase.query(sqlDelete, name, (err, resulte) => {
+    if (err) console.log(err);
+  });
+});
 
 app.get("/signIN1", (req, res) => {
-
   if (req.session.user) {
     res.send({ loggedIn: true, user: req.session.user });
   } else {
     res.send({ loggedIn: false });
   }
-}
-);
+});
 
 app.post("/signIN1", (req, res) => {
   const email = req.body.email;
@@ -157,10 +158,8 @@ app.post("/signIN1", (req, res) => {
             res.send(result);
           } else {
             res.send({ message: "Wrong email/password combination!" });
-            console.log("Wrong email/password combination!")
-
+            console.log("Wrong email/password combination!");
           }
-
         });
       } else {
         res.send({ message: "User doesn't exist" });
@@ -169,6 +168,17 @@ app.post("/signIN1", (req, res) => {
   );
 });
 
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
+// to redirect the pages without refreash
+app.get("/*", function (req, res) {
+  res.sendFile(
+    path.join(__dirname, "/../react-client/dist/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
+});
+app.listen(3000, function () {
+  console.log("listening on port 3000!");
 });
