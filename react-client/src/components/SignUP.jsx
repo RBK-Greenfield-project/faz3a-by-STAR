@@ -1,5 +1,22 @@
 import React from "react";
 import $ from "jquery";
+import TextField from "@material-ui/core/TextField";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      "& > *": {
+        margin: theme.spacing(1),
+      },
+      TextField: {
+        padding: 300,
+      },
+    },
+  })
+);
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -43,27 +60,60 @@ class SignUp extends React.Component {
   }
   render() {
     return (
-      <div>
-        <h1>sign up</h1>
-        <input
-          type="text"
-          placeholder=" email"
-          onChange={this.handleChangeemail.bind(this)}
-        ></input>
-        <input
-          type="text"
-          placeholder=" password"
-          onChange={this.handleChangepass.bind(this)}
-        ></input>
-        <button
-          id="btn"
-          type="text"
-          onClick={() => {
-            this.register();
-          }}
+      <div
+        style={{
+          border: "  1px solid grey",
+          borderRadius: "100px",
+          width: " 470px",
+          margin: "auto",
+          marginTop: " 100px",
+          paddingBottom: "50px",
+        }}
+      >
+        <Grid
+          alignItems="center"
+          alignContent="center"
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          justify="center"
         >
-          Add account
-        </button>
+          <form noValidate autoComplete="off">
+            <h1 style={{ margin: "100px 215px 0px 100px", float: "left" }}>
+              SIGN UP
+            </h1>
+            <div>
+              <TextField
+                style={{ margin: "100px 215px 0px 100px" }}
+                Type="text"
+                className="raised-button--rounded"
+                placeholder=" email"
+                onChange={this.handleChangeemail.bind(this)}
+              />
+            </div>
+            <div>
+              <TextField
+                style={{ margin: "100px 215px 0px 100px" }}
+                id="filled-basic"
+                Type="text"
+                placeholder=" password"
+                onChange={this.handleChangepass.bind(this)}
+              />
+            </div>
+            <Button
+              style={{ margin: "100px 215px 0px 100px" }}
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                this.register();
+              }}
+            >
+              {" "}
+              Sign Up
+            </Button>
+          </form>
+        </Grid>
       </div>
     );
   }

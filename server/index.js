@@ -3,11 +3,16 @@ var bodyParser = require('body-parser');
 var app = express();
 var mysql = require('mysql');
 var path = require('path')
-const bcrypt = require("bcrypt");
+
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const cors = require("cors");
 const saltRounds = 10;
+const jwt = require('jsonwebtoken')
+const http = require("http");
+const bcrypt = require("bcrypt");
+var fs = require('fs');
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
@@ -45,6 +50,7 @@ var MyDataBase = mysql.createConnection({
   database: 'faz3etak'
 
 });
+
 app.put("/update1", function(req, res) {
     // console.log("hi from server");
     const title = req.body.title;
@@ -63,13 +69,19 @@ app.put("/update1", function(req, res) {
     // res.end();
   });
 
+
+
   app.post('/insert', (req, res) => {
     console.log ("hiii",req.body)
      const Title=req.body.title;
      const Description=req.body.description;
      const Category= req.body.category;
+     const Image = req.body.image
+
+     const Userid= req.body.userId;
+
     // var sql = "INSERT INTO items (title) VALUES (?)";
-    MyDataBase.query("INSERT INTO items (title,description,category) VALUES (?,?,?)", [Title , Description , Category],(err,result)=>{
+    MyDataBase.query("INSERT INTO items (title,description,category,image,userId) VALUES (?,?,?,?,?)", [Title , Description , Category,Image,Userid],(err,result)=>{
        console.log(err);
 
        } ) })
@@ -109,37 +121,43 @@ app.post("/SignUp1", (req, res) => {
   });
 });
 app.delete('/delete1',(req,res) => {
-    console.log(req.body.id);
-    MyDataBase.query('DELETE FROM `items` WHERE `id`=?', [req.body.id], function (error, results, fields) {
+    console.log(req.body.title);
+    MyDataBase.query('DELETE FROM `items` WHERE `title`=?', [req.body.title], function (error, results, fields) {
       console.log("deeeeleeted from database")
       if (error) throw error;
       res.end('Record has been deleted!');
     });
    });
-  app.delete('/api/delete1/:id',(req,res) => {
-   const name =req.params.id;
-   const sqlDelete="Delete FROM items where id=?";
+  app.delete('/api/delete1/:title',(req,res) => {
+   const name =req.params.title;
+   console.log(req)
+   const sqlDelete="Delete FROM items where title=?";
    MyDataBase.query(sqlDelete,name,(err,resulte)=>{
      if(err)console.log(err)
    }) })
 
 
 
+   app.get ('/profile1',function(req,res){
+
+    MyDataBase.query(" SELECT * FROM items ",(err,result)=>{
+      if (err) throw err;
+      res.send(result)
+
+      } )
 
 
-app.get("/signIN1", (req, res) => {
+     })
 
-  if (req.session.user) {
-    res.send({ loggedIn: true, user: req.session.user });
-  } else {
-    res.send({ loggedIn: false });
-  }
-}
-);
+
+
+
 
 app.post("/signIN1", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
+  const id = req.body.id;
+
 
   MyDataBase.query(
     "SELECT * FROM users WHERE email = ?;",
@@ -152,22 +170,74 @@ app.post("/signIN1", (req, res) => {
       if (result.length > 0) {
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
-            req.session.user = result;
-            console.log(req.session.user);
-            res.send(result);
+
+            req.body.id = result[0].id
+            const token = jwt.sign({id},"jwtSecret", {
+              expiresIn:1000,
+            })
+
+            req.session.user =  {auth:true,token: token, result: result}
+            res.json({auth:true,token: token, result: result});
           } else {
-            res.send({ message: "Wrong email/password combination!" });
-            console.log("Wrong email/password combination!")
+            res.json({auth:false, message:'wrong password '});
+
+
 
           }
 
         });
       } else {
-        res.send({ message: "User doesn't exist" });
+        res.json({auth:false, message:'no user'});
       }
     }
   );
 });
+
+// const verifyJWT = (req,res,next) =>{
+//   const token = req.headers["x=acess-token"]
+//   if (!token){
+//     res.send('yo , we need a token')
+//   } else {
+//     jwt.verify(token, "jwtSecret", (err , decoded)=>{
+//       if (err){
+//         res.json({auth:false, message:"u failed to authenticate "})
+//       } else {
+//         res.userId= decoded.id;
+//         next();
+
+//       }
+
+//     })
+//   }
+// }
+
+
+// app.get("/isUserAuth" , (req,res)=>{
+//   res.json({auth:true})
+// })
+
+app.get("/signIN1", (req, res) => {
+
+
+    res.send({  user: req.session.user });
+
+
+
+}
+);
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '/../react-client/dist/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })})
+
+
+
+
+
+
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');
