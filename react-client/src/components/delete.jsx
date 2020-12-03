@@ -6,36 +6,39 @@ class Delete extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        id:'',
+        title:'',
         items: []
       }
     }
-     delete(id) {
-       var that = this.state.id;
+     delete(title) {
+       var that = this.state.title;
         console.log(`${that} was deleted`);
        $.ajax({
          type:'delete',
          url:'/delete1',
           contentType: "application/json",
-          data: JSON.stringify({id:that}),
+          data: JSON.stringify({title:that}),
         success: (data) => {
            console.log('pass')
+
          },
     })};
 
     onChange (e) {
       console.log("change was made")
       this.setState({
-       id: e.target.value
+       title: e.target.value
       });
     }
     render () {
       return (
       <div >
-      <label>enter your name</label>
+      <label>Enter your title  please</label>
         <input   onChange={this.onChange.bind(this)}  />
-        <button onClick={this.delete.bind(this)}> Delete </button>
+
+      <button onClick={this.delete.bind(this)}> Delete </button>
       </div>)
     }
   }
 export default Delete ;
+//
