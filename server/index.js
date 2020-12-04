@@ -50,57 +50,48 @@ var MyDataBase = mysql.createConnection({
   database: 'faz3etak'
 
 });
-
+//updates our database
 app.put("/update1", function(req, res) {
-    // console.log("hi from server");
     const title = req.body.title;
     const description = req.body.description;
     const category = req.body.category;
-    // const sqlInsert = "INSERT INTO Items( title) VALUES ('${title}')";
+    const ItemId = req.body.Id;
     MyDataBase.query(
-      "UPDATE items SET  title = (?),description = (?), category = (?) ",
-      [title, description, category],
+      "UPDATE items SET  title = (?),description = (?), category = (?) WHERE id=(?) ",
+      [title, description, category,ItemId],
       (err, result) => {
         if (err) console.log(err);
-        // console.log("1 record inserted");
-      }
-    );
-    res.send("result");
-    // res.end();
-  });
+       }
+      )
+      res.send("result");
+       });
 
 
-
-  app.post('/insert', (req, res) => {
-    console.log ("hiii",req.body)
-     const Title=req.body.title;
-     const Description=req.body.description;
-     const Category= req.body.category;
-     const Image = req.body.image
-
-     const Userid= req.body.userId;
-
-    // var sql = "INSERT INTO items (title) VALUES (?)";
-    MyDataBase.query("INSERT INTO items (title,description,category,image,userId) VALUES (?,?,?,?,?)", [Title , Description , Category,Image,Userid],(err,result)=>{
+      //insert my items into the database
+      app.post('/insert', (req, res) => {
+      const Title=req.body.title;
+      const Description=req.body.description;
+      const Category= req.body.category;
+      const Image = req.body.image
+      const Userid= req.body.userId;
+      MyDataBase.query("INSERT INTO items (title,description,category,image,userId) VALUES (?,?,?,?,?)", [Title , Description , Category,Image,Userid],(err,result)=>{
        console.log(err);
+      } ) })
 
-       } ) })
 
-       app.get("/search2", (req, res) => {
-  var newData=[]
-  MyDataBase.query("SELECT * FROM sara", function (err, result, fields) {
-    if (err) throw err
-    else
-    res.send(result)
-});  })
 
-app.get("/Items1", (req, res) => {
-
-  MyDataBase.query("SELECT * FROM items", function (err, result, fields) {
-    if (err) throw err
-    else
-    res.send(result)
-});  })
+      app.get("/Items1", (req, res) => {
+       MyDataBase.query("SELECT * FROM items", function (err, result, fields) {
+      if (err) throw err
+      else
+      res.send(result)
+      });  })
+      app.get("/Items2", (req, res) => {
+        MyDataBase.query("SELECT * FROM items", function (err, result, fields) {
+       if (err) throw err
+       else
+       res.send(result)
+       });  })
 
 app.post("/SignUp1", (req, res) => {
   const email = req.body.email;
@@ -137,108 +128,65 @@ app.delete('/delete1',(req,res) => {
    }) })
 
 
-
+    //gets all the data in the databse
    app.get ('/profile1',function(req,res){
-
-    MyDataBase.query(" SELECT * FROM items ",(err,result)=>{
+      MyDataBase.query(" SELECT * FROM items ",(err,result)=>{
       if (err) throw err;
       res.send(result)
+       } )
+       })
 
-      } )
-
-
-     })
-
-
-
-
-
-app.post("/signIN1", (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  const id = req.body.id;
-
-
-  MyDataBase.query(
-    "SELECT * FROM users WHERE email = ?;",
-    email,
-    (err, result) => {
-      if (err) {
+       app.post("/signIN1", (req, res) => {
+      const email = req.body.email;
+      const password = req.body.password;
+      const id = req.body.id;
+      //checks the database
+      MyDataBase.query(
+      "SELECT * FROM users WHERE email = ?;",
+        email,
+        (err, result) => {
+         if (err) {
         res.send({ err: err });
       }
 
-      if (result.length > 0) {
-        bcrypt.compare(password, result[0].password, (error, response) => {
+         if (result.length > 0) {
+           //check the bycrypted password
+          bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
-
-            req.body.id = result[0].id
-            const token = jwt.sign({id},"jwtSecret", {
+               req.body.id = result[0].id
+               //creates the token
+              const token = jwt.sign({id},"jwtSecret", {
               expiresIn:1000,
             })
-
+              //creates my session
             req.session.user =  {auth:true,token: token, result: result}
             res.json({auth:true,token: token, result: result});
-          } else {
+            }
+            else {
             res.json({auth:false, message:'wrong password '});
+              }
+            });
+            }
+            else {
+            res.json({auth:false, message:'no user'});
+           }
+           }
+           );
+            });
 
-
-
-          }
-
-        });
-      } else {
-        res.json({auth:false, message:'no user'});
+      app.get("/signIN1", (req, res) => {
+      res.send({  user: req.session.user });
       }
-    }
-  );
-});
+      );
 
-// const verifyJWT = (req,res,next) =>{
-//   const token = req.headers["x=acess-token"]
-//   if (!token){
-//     res.send('yo , we need a token')
-//   } else {
-//     jwt.verify(token, "jwtSecret", (err , decoded)=>{
-//       if (err){
-//         res.json({auth:false, message:"u failed to authenticate "})
-//       } else {
-//         res.userId= decoded.id;
-//         next();
+      app.get('/*', function(req, res) {
+      res.sendFile(path.join(__dirname, '/../react-client/dist/index.html'), function(err) {
+        if (err) {
+       res.status(500).send(err)
+        }
+       })
+      })
 
-//       }
-
-//     })
-//   }
-// }
-
-
-// app.get("/isUserAuth" , (req,res)=>{
-//   res.json({auth:true})
-// })
-
-app.get("/signIN1", (req, res) => {
-
-
-    res.send({  user: req.session.user });
-
-
-
-}
-);
-
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, '/../react-client/dist/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })})
-
-
-
-
-
-
-
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
-});
+    app.listen(3000, function() {
+    console.log('listening on port 3000!');
+    });

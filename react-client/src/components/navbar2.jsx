@@ -43,9 +43,7 @@ function Navbar2() {
                 {" "}
                 Home{" "}
               </NavLink>
-
-
-            </nav>
+             </nav>
           </Typography>
         </Toolbar>
       </AppBar>

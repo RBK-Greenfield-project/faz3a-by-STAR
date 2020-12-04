@@ -36,7 +36,7 @@ class SignUp extends React.Component {
       data: JSON.stringify({ email: email, password: password }),
       contentType: "application/json",
       success: (data) => {
-        console.log("success" + data);
+
       },
       error: (xhr) => {
         if (xhr.status == 201) {
@@ -45,6 +45,8 @@ class SignUp extends React.Component {
         }
       },
     });
+
+    window.location ='/'
   }
   handleChangeemail(event) {
     //  console.log(event.target.value)

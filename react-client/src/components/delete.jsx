@@ -7,9 +7,10 @@ class Delete extends React.Component {
       super(props);
       this.state = {
         title:'',
-        items: []
+
       }
     }
+    //delete the items with right title
      delete(title) {
        var that = this.state.title;
         console.log(`${that} was deleted`);
@@ -18,25 +19,23 @@ class Delete extends React.Component {
          url:'/delete1',
           contentType: "application/json",
           data: JSON.stringify({title:that}),
-        success: (data) => {
-           console.log('pass')
+          success: (data) => {
+            },
+        })};
+      //input the title
+        onChange (e) {
+         console.log("change was made")
+          this.setState({
+            title: e.target.value
+          });
+          }
 
-         },
-    })};
-
-    onChange (e) {
-      console.log("change was made")
-      this.setState({
-       title: e.target.value
-      });
-    }
     render () {
       return (
       <div >
       <label>Enter your title  please</label>
-        <input   onChange={this.onChange.bind(this)}  />
-
-      <button onClick={this.delete.bind(this)}> Delete </button>
+        <input onChange={this.onChange.bind(this)}  />
+        <button onClick={this.delete.bind(this)}> Delete </button>
       </div>)
     }
   }

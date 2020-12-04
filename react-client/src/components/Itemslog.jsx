@@ -23,7 +23,7 @@ class Items extends React.Component {
   })
   $.ajax({
     type: "Get",
-    url: "/Items1",
+    url: "/Items2",
     success: (data) => {
      this.setState({
        newData:data })
@@ -48,7 +48,7 @@ class Items extends React.Component {
       </select>
 
 
-      <div> {this.state.newData.filter(elet=> this.state.select === elet.category || this.state.select === this.state.items[2] ).map((ele,index) => <div key={index}> <img src={ele.image} height='200' width='200'/><br/>{ele.title} <br/>{ele.description} <br/>{ele.category} {ele.userId}<br/>  </div>)
+      <div> {this.state.newData.filter(elet=> this.state.select === elet.category || this.state.select === this.state.items[2] ).map((ele,index) => <div key={index}> <img src={ele.image} height='200' width='200'/><br/>{ele.title} <br/>{ele.description} <br/>{ele.category} <br/>  </div>)
      } </div>
         </div>)
         }
