@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+// import Check from './authinticated.jsx'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +26,8 @@ class signIN extends React.Component {
       email: [],
       password: [],
       loginStatus: [],
-      history: ["james"],
+      checking:'false',
+
     };
   }
   login(email, password) {
@@ -39,15 +41,17 @@ class signIN extends React.Component {
       contentType: "application/json",
       success: (data) => {
         this.setState({
-          loginStatus: data.auth,
+          loginStatus: data.token,
         });
-        // console.log(data)
+        localStorage.setItem('session',JSON.stringify(data.token));
+          if (this.state.loginStatus.length>0){
+            window.location ='/loggedIn'
 
-        if (this.state.loginStatus === true) {
-          window.location = '/loggedIn';
-        } else {
-          alert("you dont have an account");
-        }
+          }
+          else(
+            alert('you dont have an account')
+          )
+
       },
       error: (xhr) => {
         if (xhr.status == 201) {
@@ -69,6 +73,8 @@ class signIN extends React.Component {
       },
     });
   }
+
+
 
   handleChangeemail(event) {
     //  console.log(event.target.value)
@@ -94,6 +100,7 @@ class signIN extends React.Component {
           paddingBottom: "50px",
         }}
       >
+
         {/* <SignUP /> */}
         <Grid
           alignItems="center"
@@ -136,7 +143,11 @@ class signIN extends React.Component {
               SIGN IN
             </Button>
           </form>
+
+
         </Grid>
+
+
       </div>
     );
   }

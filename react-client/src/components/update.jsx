@@ -2,8 +2,6 @@ import React from "react";
 import Axios from "axios";
 import Button from '@material-ui/core/Button';
 
-
-
 class Update extends React.Component {
   constructor(props) {
     super(props);
@@ -11,6 +9,8 @@ class Update extends React.Component {
       title: "",
       description: "",
       category: "",
+      id:'',
+
     };
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeDescription = this.handleChangeDescription.bind(this);
@@ -18,42 +18,51 @@ class Update extends React.Component {
     this.handleUpdate = this.handleUpdate.bind(this);
 
   }
+//handle the change of the input
   handleChangeTitle(event) {
     this.setState({
       title: event.target.value,
     });
-    <ul>{this.state}</ul>;
-  }
+    }
+    //handle the change of the input
   handleChangeDescription(event) {
     this.setState({
       description: event.target.value,
     });
-    <ul>{this.state}</ul>;
-  }
+    }
+    //handle the change of the input
   handleChangeCategory(event) {
     this.setState({
       category: event.target.value,
-    });
-    <ul>{this.state}</ul>;
+
+    })
   }
+  //handle the change of the input
+    handleChangeid(event) {
+      this.setState({
+        id: event.target.value,
+
+      })
+
+      }
+//handles the update for the items
   handleUpdate(event) {
-    // console.log(this.state.description);
     var title = this.state.title;
     var description = this.state.description;
     var category = this.state.category;
+    var Id= this.state.id
     event.preventDefault();
     Axios.put("http://localhost:3000/update1", {
       title: title,
       description: description,
       category: category,
+      Id:Id,
     })
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
-
-    // res.data.headers["Content-Type"];
   }
 
-
+//render the application
   render() {
     return (
       <div>
@@ -82,6 +91,15 @@ class Update extends React.Component {
               name=" category"
               value={this.state.value}
               onChange={this.handleChangeCategory}
+            />
+          </label>
+          <label>
+            id:
+            <input
+              type="text"
+              name=" category"
+              value={this.state.value}
+              onChange={this.handleChangeid.bind(this)}
             />
           </label>
           <Button

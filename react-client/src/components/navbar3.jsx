@@ -48,13 +48,17 @@ function Navbar() {
                 Home{" "}
               </NavLink>
 
-              <NavLink to="/Items2" className={classes.menuButton}>
+              <NavLink to="/Items3" className={classes.menuButton}>
                 {" "}
                 Items{" "}
               </NavLink>
               <NavLink to="/profile" className={classes.menuButton}>
                 {" "}
                 Profile{" "}
+              </NavLink>
+              <NavLink to="/SignOut" className={classes.menuButton}>
+                {" "}
+                Sign Out{" "}
               </NavLink>
             </nav>
           </Typography>
