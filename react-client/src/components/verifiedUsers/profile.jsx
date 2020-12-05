@@ -78,13 +78,13 @@ class  User extends React.Component {
 
       <br/>
      <div >
-      <Button  style={{marginLeft: '200px',background : 'rgb(70, 102, 97)',color: 'white'}} onClick= {this.showList.bind(this)}>view profile</Button>
+      <Button  style={{marginLeft: '250px',background : 'rgb(70, 102, 97)',color: 'white'}} onClick= {this.showList.bind(this)}>view profile</Button>
       <Button  style={{ marginLeft:'5px' ,background : 'rgb(70, 102, 97)',color: 'white'}} onClick= {this.showitems.bind(this)}> items</Button>
 
       </div>
           {/* //brings all the data and compare them with the user id if it matches it will show his items */}
         <div  id ='dy'>  {this.state.Data.filter(elet=> this.state.userid=== elet.userId ).map((ele,index) =>
-        <List key={index}> <Avatar  src={ele.image} style={{width:'100px' ,height:"100px"}} /> <ListItem styke={{fontSize:'20px'}}>{ele.title} </ListItem> <ListItem>{ele.description}</ListItem>  <ListItem>{ele.category}</ListItem>  <ListItem> {ele.id}</ListItem>    <Update/>  <Delete/></List> )
+        <List key={index}> <Avatar  src={ele.image} style={{width:'100px' ,height:"100px"}} /> <ListItem style={{fontSize:'20px', fontFamily:'Cursive',width:'50px'}}>{ele.title} </ListItem> <ListItem  style={{fontSize:'20px', fontFamily:'Cursive'}}>{ele.description}</ListItem>  <ListItem style={{fontSize:'20px', fontFamily:'Cursive'}}>{ele.category}</ListItem>  <ListItem style={{fontSize:'20px', fontFamily:'Cursive'}}> {ele.id}</ListItem>    <Update/>  <Delete/></List> )
       } </div>
       </div></Grid>
       )}

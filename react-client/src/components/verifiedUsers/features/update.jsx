@@ -2,6 +2,8 @@ import React from "react";
 import Axios from "axios";
 import Button from '@material-ui/core/Button';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import TextField from '@material-ui/core/TextField';
+
 class Update extends React.Component {
   constructor(props) {
     super(props);
@@ -69,20 +71,22 @@ class Update extends React.Component {
         <div onSubmit={this.handleSubmit}>
           <label>
             Title:
-            <input
+            <TextField
               value={this.state.value}
               onChange={this.handleChangeTitle}
             />
+            <br/> <br/>
           </label>
           <label>
             description:
-            <input
+            <TextField
               type="text"
               name="description"
               value={this.state.value}
               onChange={this.handleChangeDescription}
             />
           </label>
+          <br/><br/>
           <NativeSelect
               id="demo-customized-select-native"
                 onChange={this.handleChangeCategory}
@@ -95,9 +99,10 @@ class Update extends React.Component {
               <option  value ='clothes'>{this.state.category[4]}</option>
 
             </NativeSelect>
+            <br/><br/>
           <label>
             id:
-            <input
+            <TextField
               type="text"
               name=" category"
               value={this.state.value}
