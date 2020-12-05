@@ -33,7 +33,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 60 * 60 * 24,
+      // expires: 60 * 60 * 24,
     },
   })
 );
@@ -44,14 +44,14 @@ app.use(express.json());
 app.use(express.static(__dirname + "/../react-client/dist"));
 
 var MyDataBase = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'password',
-  database: 'faz3etak'
+      host     : 'localhost',
+      user     : 'root',
+      password : 'password',
+      database: 'faz3etak'
+    });
 
-});
-//updates our database
-app.put("/update1", function(req, res) {
+    //updates our database
+    app.put("/update1", function(req, res) {
     const title = req.body.title;
     const description = req.body.description;
     const category = req.body.category;
@@ -92,7 +92,7 @@ app.put("/update1", function(req, res) {
        else
        res.send(result)
        });  })
-
+//sign up
 app.post("/SignUp1", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -175,7 +175,7 @@ app.delete('/delete1',(req,res) => {
             });
 
       app.get("/signIN1", (req, res) => {
-      res.send({  user: req.session.user });
+      res.send( req.session.user );
       }
       );
 

@@ -1,3 +1,6 @@
+//this file is for the pictures we have in our homepage
+
+
 const tileData = [
   {
     img:

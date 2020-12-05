@@ -11,7 +11,7 @@ import AirplanemodeActiveRoundedIcon from "@material-ui/icons/AirplanemodeActive
 
 const useStyles = makeStyles({
   root: {
-    width: 2000,
+    width: 1350,
   },
 });
 

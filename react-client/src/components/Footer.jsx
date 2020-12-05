@@ -12,7 +12,7 @@ import AlternateEmailSharpIcon from "@material-ui/icons/AlternateEmailSharp";
 
 const useStyles = makeStyles({
   root: {
-    width: 2000,
+    width: 1350,
     backgroundColor: "000000",
   },
 });

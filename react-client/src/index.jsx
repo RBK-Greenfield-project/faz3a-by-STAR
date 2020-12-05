@@ -1,19 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Switch,Route} from "react-router-dom";
-import Signout from './components/signout.jsx';
-import Navbar from './components/navbar.jsx';
-import Homepage from './components/Homepage.jsx';
-import Items from './components/Items.jsx';
-import Delete from './components/delete.jsx';
+import Signout from './components/verifiedUsers/features/signout.jsx';
+import Navbar from './components/unverifiedUsers/navbar.jsx';
+import Homepage from './components/unverifiedUsers/Homepage.jsx';
+import Items from './components/unverifiedUsers/Items.jsx';
+import Delete from './components/verifiedUsers/features/delete.jsx';
 import Button from '@material-ui/core/Button';
-import Upload from './components/upload.jsx';
-import Update from './components/update.jsx';
-import Profile from "./components/profile.jsx"
-import SignIn from './components/signIN.jsx'
-import SignUP from './components/SignUP.jsx'
-import LoggedIn from './components/loggedinpage.jsx'
-import Items2 from './components/Itemslog.jsx'
+import Upload from './components/verifiedUsers/features/upload.jsx';
+import Update from './components/verifiedUsers/features/update.jsx';
+import Profile from "./components/verifiedUsers/profile.jsx"
+import SignIn from './components/unverifiedUsers/signIN.jsx'
+import SignUP from './components/unverifiedUsers/SignUP.jsx'
+import LoggedIn from './components/verifiedUsers/loggedinpage.jsx'
+import Items2 from './components/verifiedUsers/Itemslog.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 
