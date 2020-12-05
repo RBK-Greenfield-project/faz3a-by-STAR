@@ -3,6 +3,8 @@ import React from 'react';
 import $ from 'jquery';
 import Axios from 'axios';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 class Delete extends React.Component {
     constructor(props) {
       super(props);
@@ -34,7 +36,7 @@ class Delete extends React.Component {
       return (
       <div >
       <label>Enter your title  please</label>
-        <input onChange={this.onChange.bind(this)}  />
+      <TextField onChange={this.onChange.bind(this)}  />
         <Button
             type="button"
             value="Info" onClick={this.delete.bind(this)}> Delete  </Button>

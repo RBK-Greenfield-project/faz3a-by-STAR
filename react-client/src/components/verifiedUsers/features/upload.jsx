@@ -20,7 +20,7 @@ class Upload extends React.Component {
     this.state = {
       title: "",
       description: "",
-      categories: ['cars','small business for sale',"food recipes","shoes",'clothes'],
+      categories: ['cars','small-business-for-sale',"food recipes","shoes",'clothes'],
       category:[],
       userId:"",
       image:null,
@@ -189,7 +189,7 @@ class Upload extends React.Component {
             >
               <option aria-label="None" value="" />
               <option  value ='cars'>{this.state.categories[0]}</option>
-              <option  value='small business for sale '>{this.state.categories[1]}</option>
+              <option  value='small-business-for-sale '>{this.state.categories[1]}</option>
               <option  value ='food recipes'>{this.state.categories[2]}</option>
               <option  value='shoes'>{this.state.categories[3]}</option>
               <option  value ='clothes'>{this.state.categories[4]}</option>

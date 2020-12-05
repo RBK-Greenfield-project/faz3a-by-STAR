@@ -47,7 +47,7 @@ class Items extends React.Component {
 
     return (
     <div>  <Grid container
-      item xs={12}
+      item xs={34}
    direction='column'
    width= '100px'
    alignContent='stretch'
